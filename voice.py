@@ -2,6 +2,8 @@ import pyttsx3
 import datetime
 import speech_recognition as speech
 import wikipedia
+import webbrowser
+import os
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -54,3 +56,25 @@ if __name__ == "__main__":
             results = wikipedia.summary(query, sentences = 2)
             speak("According to Wikipedia")
             speak(results)    
+        
+        elif 'open youtube' in query:
+            webbrowser.open("youtube.com")
+
+        elif 'open google' in query:
+            webbrowser.open("google.com")
+        
+        elif 'open facebook' in query:
+            webbrowser.open("facebook.com")
+
+        elif 'open instagram' in query:
+            webbrowser.open("instagram.com")
+
+        elif 'play music' in query:
+            music_dir = 'C:\\Users\\ACER\\Music'
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[1]))
+
+        elif 'the time' in query:
+            Time = datetime.datetime.now().strftime("%H: %M: %S")
+            speak(f"The time is, {Time}")
