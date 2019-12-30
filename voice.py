@@ -4,6 +4,7 @@ import speech_recognition as speech
 import wikipedia
 import webbrowser
 import os
+import smtplib
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -23,7 +24,7 @@ def WishMe():
     else:
         speak("Good Evening!")
 
-    speak("Hi Kuki! How can I help you?")
+    speak("Hi Vaishnavi! How can I help you?")
 
 def takeCommand():
     r = speech.Recognizer()
@@ -39,10 +40,18 @@ def takeCommand():
     
     except Exception as e:
         print(e)
-        print("I didn't hear you..")
+        print("I can't hear you..")
         return "None"
 
     return query
+
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('your_email@gmail.com', 'your_password')
+    server.sendmail('your_email@gmail.com',to, content)
+    server.close()
 
 if __name__ == "__main__":
     WishMe()
@@ -78,3 +87,19 @@ if __name__ == "__main__":
         elif 'the time' in query:
             Time = datetime.datetime.now().strftime("%H: %M: %S")
             speak(f"The time is, {Time}")
+
+        elif 'open code' in query:
+            codePath= 'C:\\Users\\ACER\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe'
+            os.startfile(codePath)
+
+        elif 'send email' in query:
+            try:
+                speak("What should I say?")
+                content = takeCommand()
+                to = "sender_email@mail.com"
+                sendEmail(to, content)
+                speak("Email has been succesfully sent!")
+
+            except Exception as e:
+                print(e)
+                speak("Sorry, email can't be sent.")
