@@ -1,5 +1,5 @@
 # AI-Voice-Assistant
-A simple virtual assistant application created with Python
+A simple virtual assistant application created with a Speech recogniton API in Python.
 
 ### Features
 * Greeting based on time of the day
